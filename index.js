@@ -64,8 +64,6 @@ function gulpRaml2html(options) {
   var supportJsonInput = !!options.supportJsonInput;
 
   return through2.obj(function(file, enc, callback) {
-    this.push(file); // always send the same file through
-
     if (file.isNull()) {
       return callback(); // do nothing if no contents
     }
@@ -87,6 +85,8 @@ function gulpRaml2html(options) {
       this.emit('error', new PluginError(PLUGIN_NAME, 'Streams are not supported!'));
       return callback();
     }
+    
+    this.push(file); // always send the same file through
   });
 }
 
